@@ -4,17 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class EnterValues extends Activity {
@@ -45,19 +42,12 @@ public class EnterValues extends Activity {
     }
 
     public void buttonClick(View v){
-
         if(v.getId() == R.id.Bsubmit){
             String spinner1Str = spinner1.getSelectedItem().toString();
-
             EditText ET1 = findViewById(R.id.ET1);
             String ET1str = ET1.getText().toString();
 
-            System.out.println(spinner1Str);
-            System.out.println(ET1str);
-
             Exercises e = new Exercises(spinner1Str, ET1str);
-//        e.setExercise(spinner1Str);
-//        e.setReps(ET1str);
 
             dbRef.push().setValue(e);
 
@@ -84,18 +74,3 @@ public class EnterValues extends Activity {
         list.add("Pullups");
     }
 }
-
-
-/* might use this in the future */
-//        dropDownMenu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                String itemvalue = adapterView.getItemAtPosition(i).toString();
-//                Toast.makeText(EnterValues.this, "Selected: "+itemvalue, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
