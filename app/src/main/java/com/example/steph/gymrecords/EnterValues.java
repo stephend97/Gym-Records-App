@@ -31,13 +31,13 @@ public class EnterValues extends Activity {
         setContentView(R.layout.enter_values);
 
         date = getIntent().getStringExtra("date");
-        dbRef = db.getReference(date);
+        dbRef = db.getReference().child("workouts").child(date); // Passes the date for reference for database
 
         //initialize all spinners
         spinner1 = findViewById(R.id.spinner1);
 
         list = new ArrayList<>();
-        addToList();
+        addToList(); // Adds exercise names to the spinner
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -53,9 +53,9 @@ public class EnterValues extends Activity {
         System.out.println(spinner1Str);
         System.out.println(ET1str);
 
-        Exercises e = new Exercises();
-        e.setExercise(spinner1Str);
-        e.setReps(ET1str);
+        Exercises e = new Exercises(spinner1Str, ET1str);
+//        e.setExercise(spinner1Str);
+//        e.setReps(ET1str);
 
         dbRef.push().setValue(e);
 
@@ -64,6 +64,7 @@ public class EnterValues extends Activity {
         startActivity(i);
     }
 
+    // Adds exercise names to the spinner
     public void addToList(){
         list.add("");
         list.add("Flat dumbbell bench");
