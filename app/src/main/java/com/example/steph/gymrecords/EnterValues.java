@@ -45,23 +45,30 @@ public class EnterValues extends Activity {
     }
 
     public void buttonClick(View v){
-        String spinner1Str = spinner1.getSelectedItem().toString();
 
-        EditText ET1 = findViewById(R.id.ET1);
-        String ET1str = ET1.getText().toString();
+        if(v.getId() == R.id.Bsubmit){
+            String spinner1Str = spinner1.getSelectedItem().toString();
 
-        System.out.println(spinner1Str);
-        System.out.println(ET1str);
+            EditText ET1 = findViewById(R.id.ET1);
+            String ET1str = ET1.getText().toString();
 
-        Exercises e = new Exercises(spinner1Str, ET1str);
+            System.out.println(spinner1Str);
+            System.out.println(ET1str);
+
+            Exercises e = new Exercises(spinner1Str, ET1str);
 //        e.setExercise(spinner1Str);
 //        e.setReps(ET1str);
 
-        dbRef.push().setValue(e);
+            dbRef.push().setValue(e);
 
-        Intent i = new Intent(EnterValues.this, EnterValues.class);
-        i.putExtra("date", date); //Passes on the date to enter more exercises under it
-        startActivity(i);
+            Intent i = new Intent(EnterValues.this, EnterValues.class);
+            i.putExtra("date", date); //Passes on the date to enter more exercises under it
+            startActivity(i);
+        }
+        else if(v.getId() == R.id.Bfinish){
+            Intent i = new Intent(EnterValues.this, MainActivity.class);
+            startActivity(i);
+        }
     }
 
     // Adds exercise names to the spinner
