@@ -21,8 +21,7 @@ import com.google.android.gms.common.api.Status;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener{
 
-    String id, displayName;
-    SignInButton signIn;
+    String id;
     GoogleSignInAccount account;
     GoogleApiClient googleApiClient;
     static final int REQ_CODE = 9001;
@@ -38,16 +37,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textView = findViewById(R.id.welcomeTV);
         gSignInButton = findViewById(R.id.sign_in_button);
         vLayout = findViewById(R.id.verticalLayout);
-        signIn = findViewById(R.id.sign_in_button);
-        signIn.setOnClickListener(this);
+        gSignInButton.setOnClickListener(this);
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,signInOptions).build();
         vLayout.setVisibility(View.GONE);
     }
 
     public void onClick(View view) {
-        Toast.makeText(this, id, Toast.LENGTH_LONG).show();
-
         if(view.getId() == R.id.sign_in_button){
             signIn();
         }
@@ -61,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if(view.getId() == R.id.BviewHistory){
             Intent i = new Intent(MainActivity.this, ViewHistory.class);
+            i.putExtra("ID", account.getId());
             startActivity(i);
         }
     }
@@ -108,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(result.isSuccess()) {
             account = result.getSignInAccount();
             updateUI(true);
-            textView.setText("Signed in as:, " + account.getEmail());
+            textView.setText("Signed in as: " + account.getEmail());
         }
         else{
             Toast.makeText(this, "Sign in failed.", Toast.LENGTH_LONG).show();

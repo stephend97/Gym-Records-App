@@ -18,8 +18,9 @@ public class ViewHistory extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_history);
         FirebaseDatabase db = null;
+        String id = getIntent().getStringExtra("ID");
 
-        db.getInstance().getReference().child("workouts")
+        db.getInstance().getReference().child(id).child("workouts")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
