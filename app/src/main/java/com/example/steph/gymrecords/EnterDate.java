@@ -13,11 +13,14 @@ public class EnterDate extends Activity {
 
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference dbRef;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enter_date);
+
+        id = getIntent().getStringExtra("ID");
         dbRef = db.getReference();
     }
 
@@ -29,6 +32,7 @@ public class EnterDate extends Activity {
         //dbRef.push().setValue(ETdateStr);
 
         Intent i = new Intent(EnterDate.this, EnterValues.class);
+        i.putExtra("ID", id);
         i.putExtra("date", ETdateStr); //Passes the date to the next class
         startActivity(i);
     }

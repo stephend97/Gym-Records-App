@@ -19,7 +19,7 @@ public class EnterValues extends Activity {
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference dbRef;
     Spinner spinner1;
-    String date;
+    String date, id;
     List<String> list;
 
     @Override
@@ -27,8 +27,10 @@ public class EnterValues extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enter_values);
 
-        date = getIntent().getStringExtra("date");
-        dbRef = db.getReference().child("workouts").child(date); // Passes the date for reference for database
+        date = getIntent().getStringExtra("date"); // Passes the date for reference for database
+        id = getIntent().getStringExtra("ID");
+        dbRef = db.getReference().child(id).child("workouts").child(date);
+        //dbRef = db.getReference().child("workouts").child(date);
 
         //initialize all spinners
         spinner1 = findViewById(R.id.spinner1);
@@ -52,6 +54,7 @@ public class EnterValues extends Activity {
             dbRef.push().setValue(e);
 
             Intent i = new Intent(EnterValues.this, EnterValues.class);
+            i.putExtra("ID", id);
             i.putExtra("date", date); //Passes on the date to enter more exercises under it
             startActivity(i);
         }
@@ -64,13 +67,39 @@ public class EnterValues extends Activity {
     // Adds exercise names to the spinner
     public void addToList(){
         list.add("");
-        list.add("Flat dumbbell bench");
-        list.add("Incline dumbbell bench");
-        list.add("Flat bench");
-        list.add("Incline bench");
-        list.add("Dumbbell chest flies");
+        list.add("Abs");
+        list.add("Back Extensions");
+        list.add("Bicep Curl-Bar");
+        list.add("Bicep Curl-Cable");
+        list.add("Bicep One Arm Curl-Cable");
+        list.add("Bicep One Arm Curl-Dumbbell");
+        list.add("Calf Raises");
+        list.add("Cardio");
+        list.add("Chest Flies-Dumbbell");
+        list.add("Chest Flies-Machine");
+        list.add("Deadlift");
+        list.add("Decline Bench");
         list.add("Dips");
-        list.add("Tricep extensions");
+        list.add("Flat Bench");
+        list.add("Flat Bench-Dumbbell");
+        list.add("Front Raises");
+        list.add("Hack Squat");
+        list.add("Hammer Curl");
+        list.add("Hamstring Curls");
+        list.add("Incline Bench");
+        list.add("Incline Bench-Dumbbell");
+        list.add("Lat Pulldown");
+        list.add("Lateral Raises");
+        list.add("Leg Extensions");
+        list.add("Leg Press");
+        list.add("One Arm Rows");
+        list.add("Overhead Press");
         list.add("Pullups");
+        list.add("Seated Rows");
+        list.add("Shrugs");
+        list.add("Skullcrushers");
+        list.add("Squat");
+        list.add("Tricep Pushdown");
+        list.add("Tricep Pushdown-One Arm");
     }
 }
