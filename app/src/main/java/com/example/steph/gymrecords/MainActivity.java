@@ -40,7 +40,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gSignInButton.setOnClickListener(this);
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,signInOptions).build();
-        vLayout.setVisibility(View.GONE);
+
+        if (googleApiClient.isConnected()) {
+            System.out.println("In if in if signed in---------------------------------------------");
+            updateUI(true);
+        } else {
+            System.out.println("In else in if singed in -------------------------------------------------");
+            updateUI(false);
+        }
     }
 
     public void onClick(View view) {
